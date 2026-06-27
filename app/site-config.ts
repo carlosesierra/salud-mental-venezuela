@@ -9,9 +9,9 @@ export const siteDescription =
   "Solicitud confidencial de apoyo psicológico en crisis para venezolanos en Venezuela que experimentan angustia emocional tras actividad sísmica.";
 
 export const ogImage = {
-  url: "/images/salud-mental-venezuela-hero.png",
-  width: 1806,
-  height: 871,
+  url: "/images/salud-mental-venezuela-og.jpg",
+  width: 1200,
+  height: 630,
   alt: "Profesional de salud mental escuchando a una persona en un espacio tranquilo",
 };
 

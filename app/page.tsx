@@ -81,7 +81,7 @@ const structuredData = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f6f8f7] text-[#14312d]">
+    <main className="relative min-h-screen overflow-hidden bg-[#f6f8f7] text-[#14312d]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -89,7 +89,17 @@ export default function Home() {
         }}
       />
 
-      <section className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-6 sm:px-8 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14 lg:py-12">
+      <Image
+        src="/icon.svg"
+        alt=""
+        width={900}
+        height={600}
+        unoptimized
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-0 z-0 w-[min(42rem,78vw)] translate-x-[40%] opacity-20 select-none"
+      />
+
+      <section className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-6 sm:px-8 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14 lg:py-12">
         <div className="flex flex-col gap-7">
           <div className="flex items-center gap-3 text-sm font-semibold text-[#00695c]">
             <span className="h-2.5 w-2.5 rounded-full bg-[#00796b]" />
@@ -149,7 +159,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="relative z-10 bg-white">
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-14">
           <div className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#00796b]">
@@ -169,7 +179,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#f6f8f7]">
+      <section className="relative z-10 bg-[#f6f8f7]">
         <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
           <div className="max-w-3xl space-y-3">
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#00796b]">
@@ -201,6 +211,31 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <footer className="relative z-10 border-t border-[#d9e5e2] bg-white">
+        <div className="mx-auto w-full max-w-6xl px-5 py-6 text-sm leading-6 text-[#526964] sm:px-8">
+          <p>
+            © 2026{" "}
+            <a
+              href={siteUrl}
+              className="font-semibold text-[#14312d] transition hover:text-[#00796b]"
+            >
+              saludmentalvenezuela.app
+            </a>{" "}
+            Salud Mental Venezuela | Apoyo psicológico confidencial. Diseño web
+            por{" "}
+            <a
+              href="https://www.carlosesierra.com.au/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#14312d] transition hover:text-[#00796b]"
+            >
+              carlosesierra.com.au
+            </a>
+            .
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
