@@ -3,7 +3,7 @@ export const siteUrl = "https://www.saludmentalvenezuela.app";
 export const siteName = "Salud Mental Venezuela";
 
 export const siteTitle =
-  "Apoyo psicológico en crisis para Venezuela | Salud Mental Venezuela";
+  "Apoyo psicológico para Venezuela | Salud Mental Venezuela";
 
 export const siteDescription =
   "Solicitud confidencial de apoyo psicológico en crisis para venezolanos en Venezuela que experimentan angustia emocional tras actividad sísmica.";
