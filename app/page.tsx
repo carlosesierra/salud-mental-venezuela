@@ -94,6 +94,7 @@ export default function Home() {
         alt=""
         width={900}
         height={600}
+        loading="eager"
         unoptimized
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-0 z-0 w-[min(42rem,78vw)] translate-x-[40%] opacity-20 select-none"
