@@ -1,65 +1,73 @@
 import Image from "next/image";
+import { IntakeForm } from "./components/intake-form";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-[#f6f8f7] text-[#14312d]">
+      <section className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-6 sm:px-8 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14 lg:py-12">
+        <div className="flex flex-col gap-7">
+          <div className="flex items-center gap-3 text-sm font-semibold text-[#00695c]">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#00796b]" />
+            Apoyo psicológico confidencial
+          </div>
+
+          <div className="space-y-5">
+            <h1 className="max-w-2xl text-4xl font-bold leading-[1.08] tracking-normal text-[#0f2723] sm:text-5xl">
+              Encuentra apoyo profesional
+            </h1>
+            <p className="max-w-2xl text-lg leading-8 text-[#425e59]">
+              Si tú o alguien cercano fue afectado por la actividad sísmica en
+              Venezuela, puedes solicitar acompañamiento emocional con
+              psicólogos y consejeros voluntarios. Comparte tus datos y el
+              equipo de coordinación buscará contactarte lo antes posible.
+            </p>
+          </div>
+
+          <div className="grid gap-3 text-sm font-medium text-[#31504b] sm:grid-cols-3">
+            <div className="rounded-lg border border-[#d9e5e2] bg-white px-4 py-3">
+              Respuesta humana
+            </div>
+            <div className="rounded-lg border border-[#d9e5e2] bg-white px-4 py-3">
+              Profesionales voluntarios
+            </div>
+            <div className="rounded-lg border border-[#d9e5e2] bg-white px-4 py-3">
+              Datos tratados con reserva
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="overflow-hidden rounded-lg border border-[#d7e2df] bg-white shadow-[0_18px_50px_rgba(20,49,45,0.08)]">
+          <Image
+            src="/images/salud-mental-venezuela-hero.png"
+            alt="Profesional de salud mental escuchando a una persona en un espacio tranquilo"
+            width={1806}
+            height={871}
+            priority
+            sizes="(max-width: 1024px) 100vw, 560px"
+            className="aspect-16/10 w-full object-cover"
+          />
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-14">
+          <div className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#00796b]">
+              Solicitud de ayuda
+            </p>
+            <h2 className="text-2xl font-bold leading-tight text-[#0f2723] sm:text-3xl">
+              Completa el formulario con la información esencial
+            </h2>
+            <p className="text-base leading-7 text-[#526964]">
+              No necesitas explicar todo lo ocurrido. Con estos datos, el equipo
+              podrá derivar tu solicitud a una persona capacitada para ofrecer
+              apoyo emocional.
+            </p>
+          </div>
+
+          <IntakeForm />
+        </div>
+      </section>
+    </main>
   );
 }
