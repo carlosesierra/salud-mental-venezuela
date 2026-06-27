@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 const contactMethods = ["WhatsApp", "Llamada telefónica", "Correo electrónico"];
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 const recaptchaAction = "solicitud_apoyo";
+const noNumbersPattern = "[^0-9]+";
 
 declare global {
   interface Window {
@@ -43,6 +44,15 @@ async function getRecaptchaToken() {
         });
     });
   });
+}
+
+function formatVenezuelanPhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  const nationalDigits = digits.startsWith("58")
+    ? digits.slice(2)
+    : digits.replace(/^0+/, "");
+
+  return `+58${nationalDigits.slice(0, 10)}`;
 }
 
 export function IntakeForm() {
@@ -135,7 +145,9 @@ export function IntakeForm() {
               type="text"
               autoComplete="name"
               required
+              pattern={noNumbersPattern}
               maxLength={120}
+              title="No uses números en este campo."
               className="min-h-12 rounded-lg border border-[#cbd9d6] bg-white px-4 text-base font-medium text-[#14312d] outline-none transition focus:border-[#00796b] focus:ring-4 focus:ring-[#00796b]/15"
             />
           </label>
@@ -146,9 +158,10 @@ export function IntakeForm() {
               name="age"
               type="number"
               inputMode="numeric"
-              min="1"
-              max="120"
+              min="12"
+              max="99"
               required
+              placeholder="12"
               className="min-h-12 rounded-lg border border-[#cbd9d6] bg-white px-4 text-base font-medium text-[#14312d] outline-none transition focus:border-[#00796b] focus:ring-4 focus:ring-[#00796b]/15"
             />
           </label>
@@ -160,7 +173,9 @@ export function IntakeForm() {
               type="text"
               autoComplete="address-level2"
               required
+              pattern={noNumbersPattern}
               maxLength={140}
+              title="No uses números en este campo."
               className="min-h-12 rounded-lg border border-[#cbd9d6] bg-white px-4 text-base font-medium text-[#14312d] outline-none transition focus:border-[#00796b] focus:ring-4 focus:ring-[#00796b]/15"
             />
           </label>
@@ -194,8 +209,18 @@ export function IntakeForm() {
               name="phone"
               type="tel"
               autoComplete="tel"
+              inputMode="tel"
               required
-              maxLength={40}
+              defaultValue="+58"
+              pattern="\+58\d{10}"
+              minLength={13}
+              maxLength={13}
+              title="Usa el formato venezolano +58 seguido de 10 dígitos, por ejemplo +584121234567."
+              onInput={(event) => {
+                event.currentTarget.value = formatVenezuelanPhone(
+                  event.currentTarget.value,
+                );
+              }}
               className="min-h-12 rounded-lg border border-[#cbd9d6] bg-white px-4 text-base font-medium text-[#14312d] outline-none transition focus:border-[#00796b] focus:ring-4 focus:ring-[#00796b]/15"
             />
           </label>
@@ -248,7 +273,7 @@ export function IntakeForm() {
 
         <p className="mt-4 text-sm leading-6 text-[#526964]">
           Tu información será manejada de forma confidencial y enviada al equipo
-          de coordinación en carlosesierra@gmail.com.
+          de saludmentalvenezuela.app.
         </p>
       </form>
     </>

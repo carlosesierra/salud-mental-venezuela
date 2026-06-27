@@ -9,6 +9,8 @@ const RATE_LIMIT_MAX_REQUESTS = 5;
 const DUPLICATE_SUBMISSION_WINDOW_MS = 60 * 60 * 1000;
 const MAX_REQUEST_BODY_BYTES = 8 * 1024;
 const RECAPTCHA_ACTION = "solicitud_apoyo";
+const NUMBER_PATTERN = /\p{N}/u;
+const VENEZUELAN_PHONE_PATTERN = /^\+58\d{10}$/;
 const submissionsByIp = new Map<string, { count: number; resetAt: number }>();
 const duplicateSubmissions = new Map<string, number>();
 
@@ -96,6 +98,53 @@ function getRequiredText(
   return { ok: true, value: normalized };
 }
 
+function getRequiredWithoutNumbers(
+  value: unknown,
+  fieldName: string,
+  minLength: number,
+  maxLength: number,
+): FieldResult {
+  const result = getRequiredText(value, fieldName, minLength, maxLength);
+
+  if (!result.ok) {
+    return result;
+  }
+
+  if (NUMBER_PATTERN.test(result.value)) {
+    return {
+      ok: false,
+      message: `${fieldName} no debe contener números.`,
+    };
+  }
+
+  return result;
+}
+
+function getVenezuelanPhone(value: unknown): FieldResult {
+  if (typeof value !== "string") {
+    return {
+      ok: false,
+      message: "El número de teléfono indicado no tiene un formato válido.",
+    };
+  }
+
+  const phone = normalizeText(value);
+
+  if (!phone) {
+    return { ok: false, message: "Número de teléfono es obligatorio." };
+  }
+
+  if (hasUnsafeText(phone) || !VENEZUELAN_PHONE_PATTERN.test(phone)) {
+    return {
+      ok: false,
+      message:
+        "El número de teléfono debe comenzar con +58 y contener 10 dígitos adicionales.",
+    };
+  }
+
+  return { ok: true, value: phone };
+}
+
 function getOptionalEmail(value: unknown): FieldResult {
   if (typeof value !== "string" || !value.trim()) {
     return { ok: true, value: "" };
@@ -125,12 +174,22 @@ function validatePayload(payload: IntakePayload): ValidIntake | string {
     return "Debes autorizar el envío de la información para continuar.";
   }
 
-  const fullName = getRequiredText(payload.fullName, "Nombre completo", 2, 120);
+  const fullName = getRequiredWithoutNumbers(
+    payload.fullName,
+    "Nombre completo",
+    2,
+    120,
+  );
   if (!fullName.ok) {
     return fullName.message;
   }
 
-  const location = getRequiredText(payload.location, "Ubicación", 2, 140);
+  const location = getRequiredWithoutNumbers(
+    payload.location,
+    "Ubicación",
+    2,
+    140,
+  );
   if (!location.ok) {
     return location.message;
   }
@@ -144,10 +203,10 @@ function validatePayload(payload: IntakePayload): ValidIntake | string {
   if (
     !/^\d{1,3}$/.test(age.value) ||
     !Number.isInteger(numericAge) ||
-    numericAge < 1 ||
-    numericAge > 120
+    numericAge < 12 ||
+    numericAge > 99
   ) {
-    return "La edad indicada no es válida.";
+    return "La edad debe estar entre 12 y 99 años.";
   }
 
   const contactMethod = textValue(payload.contactMethod, 40);
@@ -159,13 +218,9 @@ function validatePayload(payload: IntakePayload): ValidIntake | string {
     return "El método de contacto indicado no es válido.";
   }
 
-  const phone = getRequiredText(payload.phone, "Número de teléfono", 7, 40);
+  const phone = getVenezuelanPhone(payload.phone);
   if (!phone.ok) {
     return phone.message;
-  }
-
-  if (!/^[+()\d\s.-]{7,40}$/.test(phone.value)) {
-    return "El número de teléfono indicado no es válido.";
   }
 
   const email = getOptionalEmail(payload.email);

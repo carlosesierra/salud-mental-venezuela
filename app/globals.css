@@ -17,3 +17,5 @@ body {
   color: var(--foreground);
   font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
+
+h1 { display: inline; }

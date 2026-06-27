@@ -1,26 +1,126 @@
 import Image from "next/image";
 import { IntakeForm } from "./components/intake-form";
+import {
+  faqItems,
+  ogImage,
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+} from "./site-config";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/icon.svg`,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: siteName,
+      url: siteUrl,
+      inLanguage: "es-VE",
+      publisher: {
+        "@id": `${siteUrl}/#organization`,
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/#webpage`,
+      url: siteUrl,
+      name: siteTitle,
+      description: siteDescription,
+      inLanguage: "es-VE",
+      isPartOf: {
+        "@id": `${siteUrl}/#website`,
+      },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${siteUrl}${ogImage.url}`,
+        width: ogImage.width,
+        height: ogImage.height,
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service`,
+      name: "Apoyo psicológico en crisis para venezolanos en Venezuela",
+      serviceType: "Apoyo psicológico en crisis",
+      areaServed: {
+        "@type": "Country",
+        name: "Venezuela",
+      },
+      provider: {
+        "@id": `${siteUrl}/#organization`,
+      },
+      audience: {
+        "@type": "Audience",
+        audienceType:
+          "Venezolanos en Venezuela que experimentan angustia emocional",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}/#faq`,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f6f8f7] text-[#14312d]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+
       <section className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-6 sm:px-8 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14 lg:py-12">
         <div className="flex flex-col gap-7">
           <div className="flex items-center gap-3 text-sm font-semibold text-[#00695c]">
             <span className="h-2.5 w-2.5 rounded-full bg-[#00796b]" />
-            Apoyo psicológico confidencial
+            Apoyo psicológico confidencial para Venezuela
           </div>
 
           <div className="space-y-5">
             <h1 className="max-w-2xl text-4xl font-bold leading-[1.08] tracking-normal text-[#0f2723] sm:text-5xl">
-              Encuentra apoyo profesional
+              Hay ayuda disponible.
+              <br />
+              Habla con alguien hoy.
             </h1>
-            <p className="max-w-2xl text-lg leading-8 text-[#425e59]">
-              Si tú o alguien cercano fue afectado por la actividad sísmica en
-              Venezuela, puedes solicitar acompañamiento emocional con
-              psicólogos y consejeros voluntarios. Comparte tus datos y el
-              equipo de coordinación buscará contactarte lo antes posible.
-            </p>
+            <div className="max-w-2xl space-y-4 text-lg leading-8 text-[#425e59]">
+              <p>
+                Somos profesionales de la salud mental en el exterior ofreciendo
+                a todos los venezolanos que experimentan angustia emocional,
+                acceso a servicios de apoyo en crisis. Existimos para que
+                ningún venezolano tenga que enfrentar sus momentos más difíciles
+                solo.
+              </p>
+              <p>
+                Si tú o alguien cercano fue afectado por la actividad sísmica
+                en Venezuela,{" "}
+                <b>
+                  puedes solicitar acompañamiento emocional con psicólogos y
+                  consejeros voluntarios
+                </b>
+                . Comparte tus datos y el equipo de coordinación buscará
+                contactarte lo antes posible.
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-3 text-sm font-medium text-[#31504b] sm:grid-cols-3">
@@ -66,6 +166,39 @@ export default function Home() {
           </div>
 
           <IntakeForm />
+        </div>
+      </section>
+
+      <section className="bg-[#f6f8f7]">
+        <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
+          <div className="max-w-3xl space-y-3">
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#00796b]">
+              Preguntas frecuentes
+            </p>
+            <h2 className="text-2xl font-bold leading-tight text-[#0f2723] sm:text-3xl">
+              Información clara antes de enviar tu solicitud
+            </h2>
+            <p className="text-base leading-7 text-[#526964]">
+              Estas respuestas resumen cómo funciona el apoyo y qué esperar
+              después de completar el formulario.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {faqItems.map((item) => (
+              <article
+                key={item.question}
+                className="rounded-lg border border-[#d9e5e2] bg-white p-5"
+              >
+                <h3 className="text-base font-bold leading-6 text-[#0f2723]">
+                  {item.question}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#526964]">
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </main>

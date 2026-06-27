@@ -1,0 +1,12 @@
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <path id="Path_1" data-name="Path 1" d="M0,0H600V600H0Z" fill="#f7d117"/>
+  <path id="Path_2" data-name="Path 2" d="M0,200H600V600H0Z" fill="#0033ab"/>
+  <path id="Path_3" data-name="Path 3" d="M0,400H600V600H0Z" fill="#cf142b"/>
+  <path id="a" d="M450,218.8l15.251,46.938-39.928-29.009h49.354L434.749,265.74Z" transform="translate(-150 -0.138)" fill="#fff"/>
+  <path id="Path_719" data-name="Path 719" d="M24.677,46.938,39.928,0,0,29.009H49.354L9.426,0Z" transform="matrix(-0.914, 0.407, -0.407, -0.914, 262.955, 268.233)" fill="#fff"/>
+  <path id="Path_720" data-name="Path 720" d="M24.677,46.938,39.928,0,0,29.009H49.353L9.426,0Z" transform="translate(207.64 295.734) rotate(132)" fill="#fff"/>
+  <path id="Path_721" data-name="Path 721" d="M24.677,46.938,39.928,0,0,29.009H49.354L9.426,0Z" transform="translate(168.295 343.365) rotate(108)" fill="#fff"/>
+  <path id="Path_716" data-name="Path 716" d="M24.677,0,39.928,46.938,0,17.929H49.354L9.426,46.938Z" transform="translate(356.136 225.353) rotate(24)" fill="#fff"/>
+  <path id="Path_717" data-name="Path 717" d="M24.677,0,39.928,46.938,0,17.929H49.354L9.426,46.938Z" transform="translate(427.242 264.326) rotate(48)" fill="#fff"/>
+  <path id="Path_718" data-name="Path 718" d="M24.677,0,39.928,46.938,0,17.929H49.354L9.426,46.938Z" transform="translate(476.346 328.86) rotate(72)" fill="#fff"/>
+</svg>
